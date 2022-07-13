@@ -69,7 +69,7 @@ function ToDoList(){
         required: "password is required",
         minLength:{
           value:5,
-          message:"your password is too short."
+          message:"your password is too short!"
       },
       })} 
       placeholder='Password1'/>
