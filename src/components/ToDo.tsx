@@ -2,6 +2,11 @@ import React from 'react';
 import { useSetRecoilState } from 'recoil';
 import { IToDo, toDoState } from './atoms';
 
+
+const food = ["pizza","mango","kimchi","kimbob"]
+const front = ["pizza"]
+const back = ["kimchi","kimbob"]
+const finalPart = [...front,"감",...back]
 function ToDo({text,category,id}:IToDo){
   const setToDos = useSetRecoilState(toDoState)
   const onClick = (event:React.MouseEvent<HTMLButtonElement>)=>{
@@ -10,10 +15,12 @@ function ToDo({text,category,id}:IToDo){
     }=event;
     setToDos(oldToDos=>{
       const targetIndex = oldToDos.findIndex(toDo => toDo.id===id);
-      const oldToDo = oldToDos[targetIndex];
-      const newToDo = {text,id,category:name};
-      console.log("replace the to do in the index",targetIndex,"with",newToDo)
-      return oldToDos;
+      const newToDo = {text,id,category:name as any};
+      return [
+        ...oldToDos.slice(0,targetIndex),
+        newToDo,
+        ...oldToDos.slice(targetIndex+1),
+      ];
     })
   };
   
